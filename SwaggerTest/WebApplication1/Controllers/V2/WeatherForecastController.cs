@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SwaggerTest.WebApplication1.Controllers.V2;
 
 [ApiController]
+[ApiExplorerSettings(GroupName = "webapplication1-v2")]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class WeatherForecastController : ControllerBase

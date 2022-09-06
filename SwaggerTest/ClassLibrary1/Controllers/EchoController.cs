@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace SwaggerTest.ClassLibrary1.Controllers;
 
 [ApiController]
+[ApiExplorerSettings(GroupName = "classlibrary1-v1")]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class EchoController : ControllerBase

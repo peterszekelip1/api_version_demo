@@ -20,20 +20,7 @@ builder.Services.AddVersionedApiExplorer(options =>
                                              options.SubstituteApiVersionInUrl = true;
                                          });
 
-builder.Services.AddSwaggerGen(options =>
-                               {
-                                   // note: need a temporary service provider here because one has not been created yet
-                                   // var provider = builder
-                                   //                .Services
-                                   //                .BuildServiceProvider()
-                                   //                .GetRequiredService<IApiVersionDescriptionProvider>();
-
-                                   // add a swagger document for each discovered API version
-                                   // foreach ( var description in provider.ApiVersionDescriptions )
-                                   // {
-                                   //     options.SwaggerDoc( description.GroupName, CreateInfoForApiVersion( description ) );
-                                   // }
-                               });
+builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 var app = builder.Build();
@@ -49,12 +36,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
                      {
-                         foreach (var desc in apiVersionDescriptionProvider.ApiVersionDescriptions)
-                         {
-                             options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json", desc.ApiVersion.ToString());
-                             options.DefaultModelsExpandDepth(-1);
-                             options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-                         }
+                         options.SwaggerEndpoint("/swagger/webapplication1-v1/swagger.json", "WebApplication1 v1");
+                         options.SwaggerEndpoint("/swagger/webapplication1-v2/swagger.json", "WebApplication1 v2");
+                         options.SwaggerEndpoint("/swagger/classlibrary1-v1/swagger.json", "ClassLibrary v1");
+                         // foreach (var desc in apiVersionDescriptionProvider.ApiVersionDescriptions)
+                         // {
+                         //     options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json", desc.ApiVersion.ToString());
+                         //     options.DefaultModelsExpandDepth(-1);
+                         //     options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+                         // }
                      });
 }
 

@@ -16,11 +16,31 @@ public class ConfigureSwaggerOptions : IConfigureNamedOptions<SwaggerGenOptions>
 
     public void Configure(SwaggerGenOptions options)
     {
-        // add swagger document for every API version discovered
-        foreach (var description in _apiVersionDescriptionProvider.ApiVersionDescriptions)
+        foreach (var apiVersionDescription in _apiVersionDescriptionProvider.ApiVersionDescriptions)
         {
-            options.SwaggerDoc(description.GroupName, CreateVersionInfo(description));
+
         }
+
+        options.SwaggerDoc("webapplication1-v1", new OpenApiInfo
+                                                 {
+                                                     Version = "1.0", Title = "WebApplication1 v1",
+                                                 });
+
+        options.SwaggerDoc("webapplication1-v2", new OpenApiInfo
+                                                 {
+                                                     Version = "2.0", Title = "WebApplication1 v2",
+                                                 });
+
+        options.SwaggerDoc("classlibrary1-v1", new OpenApiInfo
+                                               {
+                                                   Version = "1.0", Title = "ClassLibrary1 v1"
+                                               });
+
+        // add swagger document for every API version discovered
+        // foreach (var description in _apiVersionDescriptionProvider.ApiVersionDescriptions)
+        // {
+        //     options.SwaggerDoc(description.GroupName, CreateVersionInfo(description));
+        // }
     }
 
     public void Configure(string name, SwaggerGenOptions options)
